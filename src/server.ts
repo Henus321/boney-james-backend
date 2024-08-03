@@ -1,14 +1,11 @@
-// src/index.js
+import "dotenv/config.js";
 import { connectDB } from "./config/db";
 import app from "./app";
-import dotenv from "dotenv";
 
-dotenv.config();
-
-export const DB = `mongodb://${process.env.DB_HOST}:${process.env.DB_PORT}`;
-export const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5000;
 
 connectDB();
+
 const server = app.listen(PORT, () => {
     console.log(`Server is running at http://localhost:${PORT}`);
 });

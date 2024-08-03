@@ -1,5 +1,6 @@
-import { DB } from "../server";
 import mongoose from "mongoose";
+
+const DB = `mongodb://${process.env.DB_HOST}:${process.env.DB_PORT}`;
 
 export const connectDB = async () => {
     try {
