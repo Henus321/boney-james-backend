@@ -1,9 +1,15 @@
-import express, { Express, Request, Response } from "express";
+import express from "express";
+import coatRoutes from "./routes/coatRoutes";
+import { AppError } from "./utils/appError";
 
-const app: Express = express();
+const app = express();
 
-app.get("/", (req: Request, res: Response) => {
-    res.send("Express + TypeScript Server");
+// Routes
+app.use("/api/v1/coat", coatRoutes);
+
+// Errors
+app.all("*", (req, _, next) => {
+    next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));
 });
 
 export default app;
