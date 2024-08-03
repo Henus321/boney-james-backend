@@ -4,6 +4,11 @@ import { AppError } from "./utils/appError";
 
 const app = express();
 
+// Body parser, reading data from body into req.body
+app.use(express.json({ limit: "10kb" }));
+app.use(express.urlencoded({ extended: true, limit: "10kb" }));
+// TODO coockie parser
+
 // Routes
 app.use("/api/v1/coat", coatRoutes);
 

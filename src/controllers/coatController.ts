@@ -3,7 +3,6 @@ import Coat from "../models/coatModel";
 
 export const getAllCoats = asyncHandler(async (req, res, next) => {
     const doc = await Coat.find();
-    console.log(await Coat.findById({ _id: "669398c91178c6b6ddf36f6d" }));
 
     res.status(200).json({
         status: "success",
@@ -14,14 +13,14 @@ export const getAllCoats = asyncHandler(async (req, res, next) => {
     });
 });
 
-export const createCoat = () =>
-    asyncHandler(async (req, res, next) => {
-        const doc = await Coat.create(req.body);
+export const createCoat = asyncHandler(async (req, res, next) => {
+    console.log(req.body);
+    const doc = await Coat.create(req.body);
 
-        res.status(201).json({
-            status: "success",
-            data: {
-                data: doc,
-            },
-        });
+    res.status(201).json({
+        status: "success",
+        data: {
+            data: doc,
+        },
     });
+});
