@@ -10,6 +10,7 @@ import mongoSanitize from "express-mongo-sanitize";
 import xss from "xss-clean";
 
 import { AppError } from "./utils/appError";
+import { globalErrorHandler } from "../src/controllers/errorsController";
 
 const app = express();
 
@@ -61,5 +62,7 @@ app.use("/api/v1/coat", coatRoutes);
 app.all("*", (req, _, next) => {
     next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));
 });
+
+app.use(globalErrorHandler);
 
 export default app;
