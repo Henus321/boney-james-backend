@@ -52,7 +52,6 @@ const CoatSchema = new mongoose.Schema<ICoat>(
         timestamps: true,
     }
 );
-
 const Coat = mongoose.model<ICoat>("Coat", CoatSchema);
 
 export default Coat;
