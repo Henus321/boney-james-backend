@@ -9,11 +9,19 @@ import rateLimit from "express-rate-limit";
 import cookieParser from "cookie-parser";
 import mongoSanitize from "express-mongo-sanitize";
 import xss from "xss-clean";
+import cors from "cors";
 
 import { AppError } from "./utils/appError";
 import { globalErrorHandler } from "../src/controllers/errorsController";
 
 const app = express();
+
+// Cross-Origin Resource Sharing settings
+app.use(
+    cors({
+        origin: "http://localhost:5173",
+    })
+);
 
 // Security HTTP headers
 app.use(helmet());
