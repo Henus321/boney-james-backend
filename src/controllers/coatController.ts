@@ -44,7 +44,11 @@ export const getCoatColors = asyncHandler(async (req, res, next) => {
     res.status(200).json({
         status: "success",
         data: {
-            data: coatsWithSameColor.map((coat) => coat.color),
+            data: coatsWithSameColor.map((coat) => ({
+                label: coat.color.label,
+                hex: coat.color.hex,
+                coatId: coat._id,
+            })),
         },
     });
 });
