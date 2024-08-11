@@ -30,25 +30,21 @@ export const createCoat = asyncHandler(async (req, res, next) => {
     });
 });
 
-export const getCoatColors = asyncHandler(async (req, res, next) => {
+export const getSameCoatsById = asyncHandler(async (req, res, next) => {
     const coatById = await Coat.findById(req.params.id);
 
     if (!coatById) {
         return next(new AppError("No coat found with that ID", 404));
     }
 
-    const coatsWithSameColor = await Coat.find({
+    const sameCoats = await Coat.find({
         name: coatById.name,
     });
 
     res.status(200).json({
         status: "success",
         data: {
-            data: coatsWithSameColor.map((coat) => ({
-                label: coat.color.label,
-                hex: coat.color.hex,
-                coatId: coat._id,
-            })),
+            data: sameCoats,
         },
     });
 });
