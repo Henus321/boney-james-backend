@@ -10,6 +10,10 @@ const ColorSchema = new mongoose.Schema<IColor>({
         type: String,
         required: [true, "A coat must contain a hex"],
     },
+    photoUrls: {
+        type: [String],
+        required: [true, "A coat must contain a photoUrls"],
+    },
 });
 
 const CoatSchema = new mongoose.Schema<ICoat>(
@@ -34,12 +38,8 @@ const CoatSchema = new mongoose.Schema<ICoat>(
             type: String,
             required: [true, "A coat must contain a type"],
         },
-        photoUrls: {
-            type: [String],
-            required: [true, "A coat must contain a photoUrls"],
-        },
-        color: {
-            type: ColorSchema,
+        colors: {
+            type: [ColorSchema],
             required: [true, "A coat must contain a color"],
         },
         sizes: {

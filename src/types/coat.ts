@@ -4,12 +4,12 @@ export interface ICoat {
     model: string;
     name: string;
     type: string;
-    photoUrls: string[];
-    color: IColor;
+    colors: IColor[];
     sizes: string[];
 }
 
 export interface IColor {
     label: string;
     hex: string;
+    photoUrls: string[];
 }
