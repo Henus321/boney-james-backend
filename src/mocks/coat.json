@@ -1,0 +1,30 @@
+[
+    {
+        "cost": 10999,
+        "description": "Элегантное короткое пальто на кнопках, прямой крой и воротник-стойка.",
+        "model": "A-001",
+        "name": "Короткое пальто",
+        "type": "Хит",
+        "colors": [
+            {
+                "label": "Бирюзовый",
+                "hex": "#2e9ec0",
+                "photoUrls": [
+                    "https://firebasestorage.googleapis.com/v0/b/boney-james-c978c.appspot.com/o/2016%2F2021-a-005-6.jpg?alt=media&token=669b7b47-4f74-4684-a50b-8415e3e75cde",
+                    "https://firebasestorage.googleapis.com/v0/b/boney-james-c978c.appspot.com/o/2016%2F2021-a-005-7.jpg?alt=media&token=7609c089-9e0b-44a8-afa8-1988548d7acf",
+                    "https://firebasestorage.googleapis.com/v0/b/boney-james-c978c.appspot.com/o/2016%2F2021-a-005-8.jpg?alt=media&token=d8dcd203-61fe-4177-baa1-df2ad0ba2f7c"
+                ]
+            },
+            {
+                "label": "Темно-синий",
+                "hex": "#080e61",
+                "photoUrls": [
+                    "https://firebasestorage.googleapis.com/v0/b/boney-james-c978c.appspot.com/o/2016%2F2021-a-005-1.jpg?alt=media&token=4f301a1d-77d8-4e15-9117-a40ae1107a42",
+                    "https://firebasestorage.googleapis.com/v0/b/boney-james-c978c.appspot.com/o/2016%2F2021-a-005-2.jpg?alt=media&token=3c6cce45-978c-4b8f-a25f-7529c36d948d",
+                    "https://firebasestorage.googleapis.com/v0/b/boney-james-c978c.appspot.com/o/2016%2F2021-a-005-3.jpg?alt=media&token=698d4f96-c5b4-4bcf-91e5-71cbb3147290"
+                ]
+            }
+        ],
+        "sizes": ["XS 42", "S 44", "M 46", "L 48"]
+    }
+]
