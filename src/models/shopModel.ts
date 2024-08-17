@@ -30,7 +30,11 @@ const ShopSchema = new mongoose.Schema<IShop>(
         },
         types: {
             type: [String],
-            required: [true, "A shop must contain a types"],
+            required: true,
+            validate: [
+                (value: string[]) => value.length > 0,
+                "A shop must contain a types",
+            ],
         },
     },
     {
