@@ -40,11 +40,19 @@ const CoatSchema = new mongoose.Schema<ICoat>(
         },
         colors: {
             type: [ColorSchema],
-            required: [true, "A coat must contain a color"],
+            required: [true, "A coat must contain a colors"],
+            validate: [
+                (value: IColor[]) => value.length > 0,
+                "A coat must contain a colors",
+            ],
         },
         sizes: {
             type: [String],
             required: [true, "A coat must contain a sizes"],
+            validate: [
+                (value: string[]) => value.length > 0,
+                "A coat must contain a sizes",
+            ],
         },
     },
     {
