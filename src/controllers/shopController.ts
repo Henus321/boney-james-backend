@@ -6,6 +6,8 @@ import {
 } from "../utils/handlerFactory";
 import Shop from "../models/shopModel";
 import asyncHandler from "express-async-handler";
+import ShopType from "../models/shopTypeModel";
+import City from "../models/cityModel";
 
 export const getShop = getOne(Shop);
 export const createShop = createOne(Shop);
@@ -19,13 +21,21 @@ export const getAllShops = asyncHandler(async (req, res, next) => {
     if (city) Object.assign(query, { city });
     if (type) Object.assign(query, { types: type });
 
-    const doc = await Shop.find(query);
+    const docShop = await Shop.find(query);
+    const docCity = await City.find();
+    const docShopTypes = await ShopType.find();
 
-    res.status(200).json({
+    const response = {
         status: "success",
-        results: doc.length,
+        results: docShop.length,
         data: {
-            data: doc,
+            data: docShop,
+            options: {
+                city: docCity,
+                shopTypes: docShopTypes,
+            },
         },
-    });
+    };
+
+    res.status(200).json(response);
 });

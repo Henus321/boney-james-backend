@@ -4,7 +4,8 @@ import { IShop } from "../types/shop";
 const ShopSchema = new mongoose.Schema<IShop>(
     {
         city: {
-            type: String,
+            type: mongoose.Schema.ObjectId,
+            ref: "City",
             required: [true, "A shop must contain a city"],
         },
         name: {
@@ -28,20 +29,30 @@ const ShopSchema = new mongoose.Schema<IShop>(
             type: String,
             required: [true, "A shop must contain a time"],
         },
-        types: {
-            type: [String],
-            required: true,
-            validate: [
-                (value: string[]) => value.length > 0,
-                "A shop must contain a types",
-            ],
-        },
+        types: [
+            {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: "ShopType",
+                required: [true, "A shop must contain a types"],
+            },
+        ],
     },
     {
         collection: "shop",
         timestamps: true,
     }
 );
+
+ShopSchema.pre("find", function (next) {
+    this.populate({
+        path: "city",
+        select: "value label",
+    }).populate({
+        path: "types",
+        select: "value label",
+    });
+    next();
+});
 
 const Shop = mongoose.model<IShop>("Shop", ShopSchema);
 
