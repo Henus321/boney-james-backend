@@ -2,8 +2,6 @@ import express from "express";
 import coatRoutes from "./routes/coatRoutes";
 import authRoutes from "./routes/authRoutes";
 import shopRoutes from "./routes/shopRoutes";
-import shopTypeRoutes from "./routes/shopTypeRoutes";
-import cityRoutes from "./routes/cityRoutes";
 import morgan from "morgan";
 import hpp from "hpp";
 import helmet from "helmet";
@@ -71,8 +69,6 @@ app.use(compression());
 app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/coat", coatRoutes);
 app.use("/api/v1/shop", shopRoutes);
-app.use("/api/v1/shop-type", shopTypeRoutes);
-app.use("/api/v1/city", cityRoutes);
 
 // Errors
 app.all("*", (req, _, next) => {

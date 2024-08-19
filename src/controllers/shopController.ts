@@ -6,8 +6,6 @@ import {
 } from "../utils/handlerFactory";
 import Shop from "../models/shopModel";
 import asyncHandler from "express-async-handler";
-import ShopType from "../models/shopTypeModel";
-import City from "../models/cityModel";
 
 export const getShop = getOne(Shop);
 export const createShop = createOne(Shop);
@@ -18,21 +16,29 @@ export const getAllShops = asyncHandler(async (req, res, next) => {
     const { city, type } = req.query;
     const query = {};
 
-    if (city) Object.assign(query, { city });
-    if (type) Object.assign(query, { types: type });
+    if (city) Object.assign(query, { "city.value": city });
+    if (type) Object.assign(query, { "types.value": type });
 
-    const docShop = await Shop.find(query);
-    const docCity = await City.find();
-    const docShopTypes = await ShopType.find();
+    const doc = await Shop.find(query);
+
+    const cityOptions = await Shop.aggregate([
+        { $group: { _id: { label: "$city.label", value: "$city.value" } } },
+    ]);
+    const typeOptions = await Shop.aggregate([
+        {
+            $unwind: "$types",
+        },
+        { $group: { _id: { label: "$types.label", value: "$types.value" } } },
+    ]);
 
     const response = {
         status: "success",
-        results: docShop.length,
+        results: doc.length,
         data: {
-            data: docShop,
+            data: doc,
             options: {
-                city: docCity,
-                shopTypes: docShopTypes,
+                city: cityOptions.map((o) => o._id),
+                types: typeOptions.map((t) => t._id),
             },
         },
     };
