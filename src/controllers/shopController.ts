@@ -31,7 +31,7 @@ export const getAllShops = asyncHandler(async (req, res, next) => {
         { $group: { _id: { label: "$types.label", value: "$types.value" } } },
     ]);
 
-    const response = {
+    res.status(200).json({
         status: "success",
         results: doc.length,
         data: {
@@ -41,7 +41,5 @@ export const getAllShops = asyncHandler(async (req, res, next) => {
                 types: typeOptions.map((t) => t._id),
             },
         },
-    };
-
-    res.status(200).json(response);
+    });
 });
