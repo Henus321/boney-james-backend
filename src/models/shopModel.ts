@@ -1,10 +1,33 @@
 import mongoose from "mongoose";
 import { IShop } from "../types/shop";
+import { IOption } from "../types/common";
+
+const ShopTypeSchema = new mongoose.Schema<IOption>({
+    value: {
+        type: String,
+        required: [true, "A shop type must contain a value"],
+    },
+    label: {
+        type: String,
+        required: [true, "A shop type must contain a label"],
+    },
+});
+
+const CitySchema = new mongoose.Schema<IOption>({
+    value: {
+        type: String,
+        required: [true, "A city must contain a value"],
+    },
+    label: {
+        type: String,
+        required: [true, "A city must contain a label"],
+    },
+});
 
 const ShopSchema = new mongoose.Schema<IShop>(
     {
         city: {
-            type: String,
+            type: CitySchema,
             required: [true, "A shop must contain a city"],
         },
         name: {
@@ -28,14 +51,12 @@ const ShopSchema = new mongoose.Schema<IShop>(
             type: String,
             required: [true, "A shop must contain a time"],
         },
-        types: {
-            type: [String],
-            required: true,
-            validate: [
-                (value: string[]) => value.length > 0,
-                "A shop must contain a types",
-            ],
-        },
+        types: [
+            {
+                type: ShopTypeSchema,
+                required: [true, "A shop must contain a types"],
+            },
+        ],
     },
     {
         collection: "shop",

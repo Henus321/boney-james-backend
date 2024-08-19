@@ -1,0 +1,14 @@
+[
+    {
+        "label": "Москва",
+        "value": "moscow"
+    },
+    {
+        "label": "Санкт-Петербург",
+        "value": "saint-petersburg"
+    },
+    {
+        "label": "Владивосток",
+        "value": "vladivostok"
+    }
+]
