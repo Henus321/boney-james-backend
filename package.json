@@ -1,5 +1,5 @@
 {
-    "name": "boney-james-backend",
+    "name": "boney-james-node-backend",
     "version": "1.0.0",
     "main": "dist/index.js",
     "scripts": {
