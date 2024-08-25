@@ -1,6 +1,8 @@
 import { AppError } from "../utils/appError";
 import { CookieOptions, NextFunction, Request, Response } from "express";
+import { IResponse } from "../types/common";
 import { IUser } from "../types/user";
+
 import jwt from "jsonwebtoken";
 import asyncHandler from "express-async-handler";
 import User from "../models/userModel";
@@ -26,13 +28,24 @@ const createSendToken = (user: IUser, statusCode: number, res: Response) => {
 
     res.cookie("jwt", token, cookieOptions);
 
-    // Remove password
+    // Remove password anyway
     user.password = undefined as any;
+    user.passwordConfirm = undefined as any;
 
-    res.status(statusCode).json({
-        status: "success",
+    // TODO убрать токен после тестов
+    const response: IResponse & { token: string } = {
+        status: statusCode,
+        message: "success",
+        data: {
+            user: {
+                username: user.username,
+                email: user.email,
+            },
+        },
         token,
-    });
+    };
+
+    res.status(statusCode).json(response);
 };
 
 export const registration = asyncHandler(async (req, res, next) => {
