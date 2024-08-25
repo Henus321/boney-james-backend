@@ -1,6 +1,5 @@
 import { AppError } from "../utils/appError";
 import { CookieOptions, NextFunction, Request, Response } from "express";
-import { IResponse } from "../types/common";
 import { IUser } from "../types/user";
 
 import jwt from "jsonwebtoken";
@@ -32,20 +31,11 @@ const createSendToken = (user: IUser, statusCode: number, res: Response) => {
     user.password = undefined as any;
     user.passwordConfirm = undefined as any;
 
-    // TODO убрать токен после тестов
-    const response: IResponse & { token: string } = {
-        status: statusCode,
-        message: "success",
-        data: {
-            user: {
-                username: user.username,
-                email: user.email,
-            },
-        },
+    res.status(statusCode).json({
+        status: "success",
+        results: 0,
         token,
-    };
-
-    res.status(statusCode).json(response);
+    });
 };
 
 export const registration = asyncHandler(async (req, res, next) => {
@@ -138,7 +128,7 @@ export const protect = asyncHandler(async (req, res, next) => {
         );
     }
 
-    // GRANT ACCESS TO PROTECTED ROUTE
+    // grant acess to protected route
     req.user = currentUser;
     res.locals.user = currentUser;
     next();
@@ -163,6 +153,7 @@ export const restrictTo = (...roles: string[]) => {
 export const passwordChange = asyncHandler(async (req, res, next) => {
     const user = await User.findById(req.user?.id).select("+password");
 
+    // for public user test account to hand over
     if (user?.email === "user@test.com") {
         return next(
             new AppError(
@@ -187,4 +178,22 @@ export const passwordChange = asyncHandler(async (req, res, next) => {
     await user.save();
 
     createSendToken(user, 200, res);
+});
+
+export const getCurrentUser = asyncHandler(async (req, res, next) => {
+    const user = await User.findById(req.user._id);
+    if (!user) {
+        return next(new AppError("Wooops! Cant find current user.", 404));
+    }
+
+    res.status(200).json({
+        status: "success",
+        results: 1,
+        data: {
+            user: {
+                email: user.email,
+                username: user.username,
+            },
+        },
+    });
 });
